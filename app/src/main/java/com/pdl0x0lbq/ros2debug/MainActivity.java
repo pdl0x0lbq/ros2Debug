@@ -13,8 +13,8 @@ import org.ros2.rcljava.RCLJava;
 public class MainActivity extends ros_activity {
     private static final String IS_WORKING_TALKER = "isWorkingTalker";
     private static final String IS_WROKING_LISTENER = "isWorkingListener";
-    private ListenerNode listenerNode;
-    private TalkerNode talkerNode;
+    private listener_node listenerNode;
+    private talker_node talkerNode;
     private TextView listenerView;
     private static String logtag = MainActivity.class.getName();
     private boolean isWorkingListener;
@@ -30,24 +30,24 @@ public class MainActivity extends ros_activity {
             isWorkingTalker = savedInstanceState.getBoolean(IS_WORKING_TALKER);
         }
 
-        Button listenerStartBtn = (Button)findViewById(R.id.listenerStartBtn);
+        Button listenerStartBtn = (Button)findViewById(R.id.lstart);
         listenerStartBtn.setOnClickListener(startListenerListener);
-        Button listenerStopBtn = (Button)findViewById(R.id.listenerStopBtn);
+        Button listenerStopBtn = (Button)findViewById(R.id.lstop);
         listenerStopBtn.setOnClickListener(stopListenerListener);
 
-        Button talkerStartBtn = (Button)findViewById(R.id.talkerStartBtn);
+        Button talkerStartBtn = (Button)findViewById(R.id.tstart);
         talkerStartBtn.setOnClickListener(startTalkerListener);
-        Button talkerStopBtn = (Button)findViewById(R.id.talkerStopBtn);
+        Button talkerStopBtn = (Button)findViewById(R.id.tstop);
         talkerStopBtn.setOnClickListener(stopTalkerListener);
 
-        listenerView = (TextView)findViewById(R.id.listenerTv);
+        listenerView = (TextView)findViewById(R.id.ltext);
         listenerView.setMovementMethod(new ScrollingMovementMethod());
 
         RCLJava.rclJavaInit();
 
-        listenerNode = new ListenerNode("ros2galacticnode_listener", "/chatter", listenerView);
+        listenerNode = new listener_node("ros2galacticnode_listener", "/chatter", listenerView);
 
-        talkerNode = new TalkerNode("ros2galacticnode_talker", "/chatter");
+        talkerNode = new talker_node("ros2galacticnode_talker", "/chatter");
 
         changeListenerState(false);
         changeTalkerState(false);
@@ -78,8 +78,8 @@ public class MainActivity extends ros_activity {
     };
     private void changeListenerState(boolean isWorking) {
         this.isWorkingListener = isWorking;
-        Button buttonStart = (Button)findViewById(R.id.listenerStartBtn);
-        Button buttonStop = (Button)findViewById(R.id.listenerStopBtn);
+        Button buttonStart = (Button)findViewById(R.id.lstart);
+        Button buttonStop = (Button)findViewById(R.id.lstop);
         buttonStart.setEnabled(!isWorking);
         buttonStop.setEnabled(isWorking);
         if (isWorking){
@@ -90,8 +90,8 @@ public class MainActivity extends ros_activity {
     }
     private void changeTalkerState(boolean isWorking) {
         this.isWorkingTalker = isWorking;
-        Button buttonStart = (Button)findViewById(R.id.talkerStartBtn);
-        Button buttonStop = (Button)findViewById(R.id.talkerStopBtn);
+        Button buttonStart = (Button)findViewById(R.id.tstart);
+        Button buttonStop = (Button)findViewById(R.id.lstop);
         buttonStart.setEnabled(!isWorking);
         buttonStop.setEnabled(isWorking);
         if (isWorking){

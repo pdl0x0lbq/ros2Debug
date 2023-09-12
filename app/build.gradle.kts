@@ -14,6 +14,16 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        externalNativeBuild {
+            cmake {
+                arguments.add("-DANDROID_STL=c++_shared")
+
+            }
+        }
+        ndk {
+            abiFilters.add("arm64-v8a")
+
+        }
     }
 
     buildTypes {
@@ -40,7 +50,10 @@ dependencies {
     implementation(files("libs/std_msgs_messages.jar"))
     implementation(files("libs/rcl_interfaces_messages.jar"))
     implementation(files("libs/rcljava_common.jar"))
+    implementation(files("libs/slf4j-api-2.0.9.jar"))
+    implementation(files("libs/slf4j-jdk14-2.0.9.jar"))
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    //implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
 }
